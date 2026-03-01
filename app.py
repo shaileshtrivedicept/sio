@@ -72,11 +72,11 @@ avg_final_score = filtered_df['Final_Score'].mean()
 # We take the first SPREAD for each Studio_Code+Semester to avoid weighting by number of panels
 mean_panel_spread = panel_scores.groupby(['AY', 'Semester', 'Studio_Code'])['SPREAD'].first().mean()
 
-col1.metric("# Studios", num_studios)
-col2.metric("# Panels", num_panels)
-col3.metric("# Responses", num_responses)
-col4.metric("Avg Final Score", f"{avg_final_score:.2f}")
-col5.metric("Avg Panel Spread", f"{mean_panel_spread:.2f}")
+col1.metric("#Studios", num_studios)
+col2.metric("#Panels", num_panels)
+col3.metric("#Responses", num_responses)
+col4.metric("Avg Final_Score", f"{avg_final_score:.2f}")
+col5.metric("Panel Spread", f"{mean_panel_spread:.2f}")
 
 # Charts Section
 st.divider()
@@ -85,7 +85,7 @@ st.divider()
 st.subheader("Studio Trajectory")
 st_col1, st_col2 = st.columns([1, 4])
 with st_col1:
-    traj_studio = st.selectbox("Select Studio for Trajectory", sorted(filtered_df['Studio_Code'].unique()))
+    traj_studio = st.selectbox("Studio_Code for Trajectory", sorted(filtered_df['Studio_Code'].unique()))
 
 # Filter data for selected studio
 traj_df = filtered_df[filtered_df['Studio_Code'] == traj_studio]
@@ -141,9 +141,9 @@ st.plotly_chart(fig2, use_container_width=True)
 st.subheader("Final Score Distribution")
 st_col3, st_col4 = st.columns([1, 4])
 with st_col3:
-    facet_by_panel = st.checkbox("Facet by Panel ID")
+    facet_option = st.selectbox("Facet by", ["None", "Panel_ID"])
 
-if facet_by_panel:
+if facet_option == "Panel_ID":
     fig3 = px.box(filtered_df, x="Construct_ID", y="Final_Score", color="Panel_ID", points="all")
 else:
     fig3 = px.box(filtered_df, x="Construct_ID", y="Final_Score", points="all")
