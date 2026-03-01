@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import os
 from src.io import load_and_clean_data
 from src.metrics import calculate_metrics
 
@@ -9,7 +10,7 @@ from src.metrics import calculate_metrics
 st.set_page_config(page_title="Studio Review Dashboard", layout="wide")
 
 # Constants
-DATA_PATH = "data/normalized score calculation sample V3.xlsx"
+DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "normalized_score_calculation_sample_V3.xlsx")
 
 # Title
 st.title("Studio Review Dashboard")
