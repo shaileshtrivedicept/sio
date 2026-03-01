@@ -1,0 +1,8 @@
+# Python + Streamlit artifacts
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.streamlit/
+data/*.xlsx
+!data/normalized score calculation sample V3.xlsx
