@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import os
 from src.io import load_and_clean_data
 from src.metrics import calculate_metrics
 
@@ -9,7 +10,7 @@ from src.metrics import calculate_metrics
 st.set_page_config(page_title="Studio Review Dashboard", layout="wide")
 
 # Constants
-DATA_PATH = "data/normalized score calculation sample V3.xlsx"
+DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "normalized_score_calculation_sample_V3.xlsx")
 
 # Title
 st.title("Studio Review Dashboard")
@@ -123,7 +124,7 @@ for panel_id in traj_panel_scores['Panel_ID'].unique():
 
 # Add thicker line for studio total
 traj_studio_totals_sorted = traj_studio_totals.sort_values(by='Semester', key=lambda x: x.map(sort_semesters))
-fig1.add_trace(go.Scatter(x=traj_studio_totals_sorted['Semester'], y=traj_studio_totals_sorted['Studio_Total_Score'],
+fig1.add_trace(go.Scatter(x=traj_studio_totals_sorted['Semester'], y=traj_studio_totals_sorted['Studio_Total_Score'], 
                          name="Total Score", mode='lines+markers', line=dict(width=4, color='black')))
 
 fig1.update_layout(xaxis_title="Semester", yaxis_title="Score", xaxis={'categoryorder': 'array', 'categoryarray': unique_sems})
