@@ -25,7 +25,7 @@ def calculate_metrics(df):
     # SPREAD column at Studio_Code+Semester level for panel_scores
     spread_df = panel_scores.groupby(['AY', 'Semester', 'Studio_Code'])['Final_Score'].agg(['max', 'min']).reset_index()
     spread_df['SPREAD'] = spread_df['max'] - spread_df['min']
-    
+
     panel_scores = pd.merge(panel_scores, spread_df[['AY', 'Semester', 'Studio_Code', 'SPREAD']], on=['AY', 'Semester', 'Studio_Code'], how='left')
 
     return panel_scores, studio_sem_total, construct_scores, construct_share
