@@ -28,6 +28,10 @@ def load_and_clean_data(file_path):
     df['Confidence'] = pd.to_numeric(df['Confidence'], errors='coerce').astype(float)
     df['Final_Score'] = pd.to_numeric(df['Final_Score'], errors='coerce').astype(float)
 
+    # Calculate weighted Final_Score: Final_Score * Weight * Confidence
+    # This ensures the totals match the summary sheets in the Excel file
+    df['Final_Score'] = df['Final_Score'] * df['Weight'].fillna(0) * df['Confidence'].fillna(0)
+
     # Treat missing Notes safely (keep as string / nullable)
     df['Notes'] = df['Notes'].astype(str).replace('nan', '')
 
