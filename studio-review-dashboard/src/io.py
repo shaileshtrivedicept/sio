@@ -26,6 +26,10 @@ def load_and_clean_data(file_path):
     # Treat missing Notes safely
     df['Notes'] = df['Notes'].astype(str).replace('nan', '')
 
+    # Handle missing Studio_Focus_Area (common in L3 studios)
+    # Filling with "N/A" so they are selectable in filters and don't disappear
+    df['Studio_Focus_Area'] = df['Studio_Focus_Area'].fillna('N/A')
+
     # Drop rows where essential identifiers are missing
     df = df.dropna(subset=['AY', 'Semester', 'Studio_Code', 'Panel_ID'])
 
