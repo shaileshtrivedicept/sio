@@ -11,7 +11,8 @@ def load_and_clean_data(file_path):
         return pd.DataFrame()
 
     # Read the revised file (single sheet, no leading blanks)
-    df = pd.read_excel(file_path)
+    # Specifying sheet_name='Normalized Score' to be explicit and avoid sheet naming issues
+    df = pd.read_excel(file_path, sheet_name='Normalized Score')
 
     # Drop any columns whose name starts with "Unnamed"
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
