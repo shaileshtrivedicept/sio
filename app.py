@@ -10,17 +10,30 @@ from src.metrics import calculate_metrics
 st.set_page_config(page_title="Studio Review Dashboard", layout="wide")
 
 # Constants
-DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "BoR_Rating_Data.xlsx")
+DEFAULT_DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "BOR_clean_structured_analysis_v4.xlsx")
 
 # Title
 st.title("Studio Review Dashboard")
 
-# Load data
-df = load_and_clean_data(DATA_PATH)
+# Sidebar
+st.sidebar.header("Data Source")
+uploaded_file = st.sidebar.file_uploader("Upload an Excel file (BoR Analysis)", type=["xlsx"])
 
-if df.empty:
-    st.error(f"Failed to load data from {DATA_PATH}. Please ensure the file exists and is in the correct format.")
-    st.stop()
+# Load data
+if uploaded_file is not None:
+    df = load_and_clean_data(uploaded_file)
+    if df.empty:
+        st.error("Failed to load data from the uploaded file. Please ensure it's in the correct format.")
+        st.stop()
+else:
+    if os.path.exists(DEFAULT_DATA_PATH):
+        df = load_and_clean_data(DEFAULT_DATA_PATH)
+        if df.empty:
+            st.error(f"Failed to load data from {DEFAULT_DATA_PATH}. Please ensure the file is in the correct format.")
+            st.stop()
+    else:
+        st.warning("Default dataset not found. Please upload an Excel file in the sidebar to proceed.")
+        st.stop()
 
 # Sidebar filters
 st.sidebar.header("Filters")
