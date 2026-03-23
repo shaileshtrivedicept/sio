@@ -24,14 +24,13 @@ Interactive Streamlit dashboard for analyzing and visualizing studio review perf
    ```
 
 ### Running Locally
-Run the Streamlit application from the `studio-review-dashboard` directory:
+Run the Streamlit application from the root directory:
 ```bash
-cd studio-review-dashboard
 streamlit run app.py
 ```
 
 ## Data Management
-The dashboard reads data from: `data/BoR_Rating_Data.xlsx`.
+The dashboard reads data from: `data/BOR_clean_structured_analysis_v4.xlsx`.
 
 To update the data:
 1. Replace the file in the `data/` directory.
